@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --color-red-accent: #e63329;
+  --color-gray-950: #0a0a0a;
+  --font-sans: 'Space Grotesk', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, * { scroll-behavior: smooth; cursor: none !important; }
+
+body {
+  background: #eeebe4;
+  color: #111111;
+  font-family: 'Space Grotesk', sans-serif;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: #dedad2; }
+::-webkit-scrollbar-thumb { background: #999; }
+::-webkit-scrollbar-thumb:hover { background: #e63329; }
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes marqueePan {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+.cursor-blink { animation: blink 1s step-end infinite; }
+.animate-fade-up { animation: fadeInUp 0.6s ease forwards; }
+.marquee-track { animation: marqueePan 20s linear infinite; }
+
+@keyframes specSlideIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes buildingBreath {
+  0%   { opacity: 0.42; }
+  35%  { opacity: 0.08; }
+  55%  { opacity: 0.06; }
+  100% { opacity: 0.42; }
+}
+.building-breath { animation: buildingBreath 9s cubic-bezier(0.45,0,0.55,1) infinite; }
+
+/* ── Fill button ─────────────────────────────────────────────────── */
+.btn-fill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  overflow: hidden;
+  background: #1a1a1a;
+  color: #eeebe4;
+  cursor: none;
+  text-decoration: none;
+  padding: 0 1.75rem;
+  height: 48px;
+}
+
+/* Grid mosaic overlay */
+.btn-fill-grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.btn-fill-cell {
+  background: #2952ff;
+  opacity: 0;
+  transition: opacity 0s var(--d, 0ms);
+}
+
+.btn-fill:hover .btn-fill-cell {
+  opacity: 1;
+  transition: opacity 0.18s ease var(--d, 0ms);
+}
+
+.btn-fill-label {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn-fill-label-inner {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  flex-shrink: 0;
+  transition: transform 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.btn-fill-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.btn-fill:hover .btn-fill-label-inner { transform: translateY(-48px); }
+
+.btn-fill-icon {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  width: 28px;
+  margin-left: 12px;
+  z-index: 1;
+}
+
+.btn-fill-icon-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  flex-shrink: 0;
+  transition: transform 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.btn-fill:hover .btn-fill-icon-inner { transform: translateY(-48px); }
+
+/* ── Splash screen ───────────────────────────────────────────────── */
+@keyframes splashPanelIn {
+  0%   { transform: scaleY(0); transform-origin: bottom; }
+  100% { transform: scaleY(1); transform-origin: bottom; }
+}
+@keyframes splashPanelOut {
+  0%   { transform: scaleY(1); transform-origin: top; }
+  100% { transform: scaleY(0); transform-origin: top; }
+}
+@keyframes splashTextIn {
+  0%   { opacity: 0; transform: translateY(20px) skewX(-2deg); }
+  100% { opacity: 1; transform: translateY(0) skewX(0deg); }
+}
+@keyframes splashTextOut {
+  0%   { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-20px); }
+}
+@keyframes splashBarGrow {
+  from { transform: scaleX(0); transform-origin: left; }
+  to   { transform: scaleX(1); transform-origin: left; }
+}
+.splash-panel-in  { animation: splashPanelIn  0.6s cubic-bezier(0.76,0,0.24,1) both; }
+.splash-panel-out { animation: splashPanelOut 0.5s cubic-bezier(0.76,0,0.24,1) both; }
+
+/* Power button sequence */
+@keyframes pwrBtnIdle {
+  0%, 100% { filter: drop-shadow(0 0  4px rgba(255,255,255,0.25)); }
+  50%       { filter: drop-shadow(0 0 16px rgba(255,255,255,0.7)); }
+}
+@keyframes pwrIdleRing {
+  0%, 100% { transform: translate(-50%,-50%) scale(1);   opacity: 0.3; }
+  50%       { transform: translate(-50%,-50%) scale(1.12); opacity: 0.6; }
+}
+@keyframes pwrBtnPress {
+  0%   { transform: scale(1)    translateY(0); }
+  38%  { transform: scale(0.85) translateY(5px); }
+  60%  { transform: scale(0.85) translateY(5px); }
+  80%  { transform: scale(1.07) translateY(-2px); }
+  100% { transform: scale(1)    translateY(0); }
+}
+@keyframes pwrBtnNeon {
+  0%   { filter: drop-shadow(0 0  0px rgba(255,255,255,0)); }
+  30%  { filter: drop-shadow(0 0  3px #fff)
+                 drop-shadow(0 0 10px #fff)
+                 drop-shadow(0 0 28px rgba(230,51,41,0.9)); }
+  60%  { filter: drop-shadow(0 0  4px #fff)
+                 drop-shadow(0 0 16px #fff)
+                 drop-shadow(0 0 50px rgba(230,51,41,1))
+                 drop-shadow(0 0 90px rgba(230,51,41,0.6)); }
+  100% { filter: drop-shadow(0 0  3px #fff)
+                 drop-shadow(0 0 14px #fff)
+                 drop-shadow(0 0 40px rgba(230,51,41,0.9))
+                 drop-shadow(0 0 80px rgba(230,51,41,0.4)); }
+}
+@keyframes pwrRipple {
+  from { transform: translate(-50%,-50%) scale(0.1); opacity: 0.9; }
+  to   { transform: translate(-50%,-50%) scale(5);   opacity: 0; }
+}
+/* Flat dark overlay lifts completely */
+@keyframes splashDarkLift {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Neon glow bloom — expands from button, initially small then floods the screen */
+@keyframes splashGlowBloom {
+  0%   { opacity: 0;   transform: translateX(-50%) scale(0.1); }
+  20%  { opacity: 1;   transform: translateX(-50%) scale(0.5); }
+  100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+}
+
+/* Vignette fades in after light reveals — keeps edges in shadow */
+@keyframes splashVignetteIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Logo emerges from darkness — natural colors, neon blue bloom */
+@keyframes splashLogoEmerge {
+  0%   { opacity: 0;   filter: brightness(0.2); }
+  30%  { opacity: 1; }
+  60%  { filter: brightness(1.05)
+                 drop-shadow(0 0 18px rgba( 41, 82,255,0.9))
+                 drop-shadow(0 0 50px rgba( 41, 82,255,0.55))
+                 drop-shadow(0 0 90px rgba( 41,100,255,0.3)); }
+  100% { filter: brightness(1)
+                 drop-shadow(0 0 10px rgba( 41, 82,255,0.6))
+                 drop-shadow(0 0 28px rgba( 41, 82,255,0.35))
+                 drop-shadow(0 0 60px rgba( 41,100,255,0.2)); }
+}
